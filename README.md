@@ -5,5 +5,5 @@
   </a>
 </p>
 <h1 align="center">
-  Learn php basic
+  Learn php basic.
 </h1>
