@@ -12,7 +12,9 @@ include_once "../Model/Class.php";
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+        crossorigin="anonymous">
 
     <title>Hello, world!</title>
   </head>
@@ -20,7 +22,7 @@ include_once "../Model/Class.php";
     <?php try { ?>
         
     <?php $list_student = isset($_SESSION['list_student'])?$_SESSION['list_student']:[]; ?>
-    <?php $list_class = isset($_SESSION['list_class'])?$_SESSION['list_class']:[]; 
+    <?php $list_class = isset($_SESSION['list_class'])?$_SESSION['list_class']:[];
         ?>
     <div class="container mt-5">
         <!-- Button trigger modal -->
@@ -47,7 +49,7 @@ include_once "../Model/Class.php";
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
 

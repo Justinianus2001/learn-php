@@ -5,9 +5,9 @@ class DB
     static private $conn = null;
     static public function connect()
     {
-        $servername = "mysql";
+        $servername = "localhost";
         $username = "root";
-        $password = "root";
+        $password = "";
         // Create connection
         $conn = DB::$conn;
         if (!$conn) {

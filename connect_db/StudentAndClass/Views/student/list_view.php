@@ -10,16 +10,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-    <title>List student!</title>
+    <title>List Student!</title>
 </head>
 
 <body>
     <div class="container mt-5">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#student">
-            Add Student
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#student-add">
+            Add
         </button>
-        <div class="modal fade" id="student" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        <div class="modal fade" id="student-add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="studentLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -38,18 +38,87 @@
                                 <input type="text" class="form-control" name="major">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">age</label>
+                                <label class="form-label">Age</label>
                                 <input type="text" class="form-control" name="age">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <input type="submit" class="btn btn-primary" name="add" value="Submit">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#student-delete">
+            Delete
+        </button>
+        <div class="modal fade" id="student-delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="studentLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="POST" action="./students">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="studentLabel">Delete Student</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Id</label>
+                                <input type="text" class="form-control" name="id">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" name="delete" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#student-edit">
+            Edit
+        </button>
+        <div class="modal fade" id="student-edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="studentLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="POST" action="./students">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="studentLabel">Edit Student</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Id</label>
+                                <input type="text" class="form-control" name="id">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Major</label>
+                                <input type="text" class="form-control" name="major">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Age</label>
+                                <input type="text" class="form-control" name="age">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" name="edit" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <a href="../public">
+            <button class="btn btn-secondary">Home</button>
+        </a>
     </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
@@ -72,16 +141,16 @@
                         <?php foreach ($list_student as $student) {
                         ?>
                         <tr>
-                            <th scope="row"><?= $student->id ?></th>
-                            <td><?= $student->name ?></td>
-                            <td><?= $student->major ?></td>
-                            <td><?= $student->age ?></td>
+                            <th scope="row"><?= $student->getId() ?></th>
+                            <td><?= $student->getName() ?></td>
+                            <td><?= $student->getMajor() ?></td>
+                            <td><?= $student->getAge() ?></td>
                             <td>
-                                <a href="./join-class.php?id=<?= $student->id ?>">
-                                    <button class="btn btn-primary">join class</button>
+                                <a href="?id=<?= $student->getId() ?>&join=true">
+                                    <button class="btn btn-primary">Join Class</button>
                                 </a>
-                                <a href="./detail-student.php?id=<?= $student->id ?>">
-                                    <button class="btn btn-info">detail</button>
+                                <a href="?id=<?= $student->getId() ?>">
+                                    <button class="btn btn-info">Detail</button>
                                 </a>
                             </td>
                         </tr>

@@ -1,14 +1,13 @@
 <?php
 include_once "../Models/DBs.php";
-include_once "../Models/Student.php";
 include_once "../Models/Classes.php";
-class StudentController {
+class ClassController {
 
     static public function index() {
         try {
             //code...
-            $list_student = Student::getList();
-            include_once "../Views/student/list_view.php";
+            $list_class = Classes::getList();
+            include_once "../Views/class/list_view.php";
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
@@ -16,30 +15,14 @@ class StudentController {
 
     static public function info($id) {
         try {
-            $list_student = Student::getList();
-            $student = null;
-            foreach ($list_student as $val_student)
-                if ($val_student->getId() == $id) {
-                    $student = $val_student;
-                    break;
-                }
-            include_once "../Views/student/detail-student.php";
-        } catch (\Throwable $th) {
-            echo $th->getMessage();
-        }
-    }
-
-    static public function joinClass($id) {
-        try {
-            $list_student = Student::getList();
             $list_class = Classes::getList();
-            $student = null;
-            foreach ($list_student as $val_student)
-                if ($val_student->getId() == $id) {
-                    $student = $val_student;
+            $class = null;
+            foreach ($list_class as $val_class)
+                if ($val_class->getId() == $id) {
+                    $class = $val_class;
                     break;
                 }
-            include_once "../Views/student/join-class.php";
+            include_once "../Views/class/detail-class.php";
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
@@ -48,12 +31,12 @@ class StudentController {
     static public function add($request) {
         try {
             //code...
-            if (!$request['name'] || !$request['age'] || !$request['major']) {
+            if (!$request['name'] || !$request['subject']) {
                 echo "Dữ liệu không hợp lệ";
                 return;
             }
-            $student = new Student(null, $request['name'], $request['age'], $request['major']);
-            $result = Student::add($student);
+            $class = new Classes(null, $request['name'], $request['subject']);
+            $result = Classes::add($class);
             var_dump($result);
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         } catch (\Throwable $th) {
@@ -69,7 +52,7 @@ class StudentController {
             }
             $id = $request['id'];
             $conn = DB::connect();
-            $sql = "SELECT * FROM `students` WHERE `id_sv` = " . $id;
+            $sql = "SELECT * FROM `classes` WHERE `id_mh` = " . $id;
             $result = $conn->query($sql);
             $conn->close();
             if ($result->num_rows == 0) {
@@ -77,7 +60,7 @@ class StudentController {
                 echo 'alert("Mã id không hợp lệ")';
                 echo '</script>';
             } else {
-                $result = Student::delete($id);
+                $result = Classes::delete($id);
                 var_dump($result);
                 header('Location: ' . $_SERVER['HTTP_REFERER']);
             }
@@ -88,12 +71,12 @@ class StudentController {
 
     static public function edit($request) {
         try {
-            if (!$request['id'] || !$request['name'] || !$request['age'] || !$request['major']) {
+            if (!$request['id'] || !$request['name'] || !$request['subject']) {
                 echo "Dữ liệu không hợp lệ";
                 return;
             }
             $conn = DB::connect();
-            $sql = "SELECT * FROM `students` WHERE `id_sv` = " . $request['id'];
+            $sql = "SELECT * FROM `classes` WHERE `id_mh` = " . $request['id'];
             $result = $conn->query($sql);
             $conn->close();
             if ($result->num_rows == 0) {
@@ -101,8 +84,8 @@ class StudentController {
                 echo 'alert("Mã id không hợp lệ")';
                 echo '</script>';
             } else {
-                $student = new Student($request['id'], $request['name'], $request['age'], $request['major']);
-                $result = Student::edit($student);
+                $class = new Classes($request['id'], $request['name'], $request['subject']);
+                $result = Classes::edit($class);
                 var_dump($result);
                 header('Location: ' . $_SERVER['HTTP_REFERER']);
             }
@@ -110,4 +93,4 @@ class StudentController {
             echo $th->getMessage();
         }
     }
-} ?>
+}

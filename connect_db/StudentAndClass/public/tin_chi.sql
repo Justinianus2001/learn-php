@@ -27,8 +27,8 @@ SET time_zone = "+00:00";
 -- Table structure for table `clasess`
 --
 
-CREATE TABLE `clasess` (
-  `id` int(20) NOT NULL,
+CREATE TABLE `classes` (
+  `id_mh` int(20) NOT NULL,
   `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `subject` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -40,19 +40,30 @@ CREATE TABLE `clasess` (
 --
 
 CREATE TABLE `students` (
-  `id` int(20) NOT NULL,
+  `id_sv` int(20) NOT NULL,
   `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `age` int(11) NOT NULL,
   `major` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dangky`
+--
+
+CREATE TABLE `dangky` (
+  `id_sv` int(20) NOT NULL,
+  `id_mh` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `name`, `age`, `major`) VALUES
+INSERT INTO `students` (`id_sv`, `name`, `age`, `major`) VALUES
 (1, 'Quy', 18, 'IT'),
-(3, 'Nguyễn Thanh Quý', 17, 'Toán');
+(2, 'Nguyễn Thanh Quý', 17, 'Toán');
 
 --
 -- Indexes for dumped tables
@@ -61,14 +72,14 @@ INSERT INTO `students` (`id`, `name`, `age`, `major`) VALUES
 --
 -- Indexes for table `clasess`
 --
-ALTER TABLE `clasess`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `classes`
+  ADD PRIMARY KEY (`id_mh`);
 
 --
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_sv`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -77,14 +88,14 @@ ALTER TABLE `students`
 --
 -- AUTO_INCREMENT for table `clasess`
 --
-ALTER TABLE `clasess`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `classes`
+  MODIFY `id_mh` int(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_sv` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
