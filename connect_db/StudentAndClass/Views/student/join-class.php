@@ -1,6 +1,4 @@
-
 <?php 
-// session_start();
 include_once "../Models/Student.php";
 include_once "../Models/Classes.php";
 ?>
@@ -20,53 +18,46 @@ include_once "../Models/Classes.php";
     </head>
     <body>
         <?php try { ?>
-            
-        <?php
-            $list_student = Student::getList();
-            $list_class = Classes::getList();
-        ?>
-        <div class="container mt-5">
-            <!-- Button trigger modal -->
-            <form method="POST" action="../Models/join-class.php">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="classLabel">Add Class</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">Name</label>
-                        <input type="hidden" value="<?= $_GET['id']?>" class="form-control" name="student_id">
+            <?php $list_class = Classes::getList(); ?>
+            <div class="container mt-5">
+                <!-- Button trigger modal -->
+                <form method="POST" action="../Models/join-class.php">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="classLabel">Add Class</h5>
                     </div>
-                    <div class="mb-3">
-                    <select class="form-select" name="class_id" aria-label="Default select example">
-                        <?php
-                            foreach($list_class as $class){
-                                $info_class = $class->getInfo();
-                        ?>
-                        <option value="<?=$info_class['id']?>"><?=$info_class['name']?></option>
-                    <?php }?>
-                        </select>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="hidden" value="<?= $_REQUEST['join'] ?>" class="form-control" name="student_id">
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="class_id" aria-label="Default select example">
+                                <?php
+                                    foreach ($list_class as $class) {
+                                        $info_class = $class->getInfo();
+                                ?>
+                                <option value="<?= $info_class['id'] ?>"><?= $info_class['name'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="../public/students">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </a>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
-
-            <?php 
-            //code...
-            } catch (\Throwable $th) {
-                //throw $th;
-                //throw $th;
+                    <div class="modal-footer">
+                        <a href="../public/students">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </a>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+        <?php 
+        //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+            //throw $th;
             echo "</br>-------------";
             echo "</br>Line: ".$th->getLine();
             echo "</br>Line: ".$th->getMessage();
-            } 
-            ?>
-        </div>
+        } ?>
+            </div>
 
 
         <!-- Option 1: Bootstrap Bundle with Popper -->

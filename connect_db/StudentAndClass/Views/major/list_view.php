@@ -1,4 +1,6 @@
-<?php include_once "../Models/Majors.php"; ?>
+<?php
+    include_once "../Models/DBs.php";
+?>
 <!doctype html>
 <html lang="en">
     <head>
@@ -10,36 +12,27 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-        <title>List Student!</title>
+        <title>List Major!</title>
     </head>
     <body>
         <div class="container mt-5">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#student-add">
-                Add Student
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#major-add">
+                Add Major
             </button>
-            <div class="modal fade" id="student-add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="studentLabel" aria-hidden="true">
+            <div class="modal fade" id="major-add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="majorLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form method="POST" action="./students">
+                        <form method="POST" action="./majors">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="studentLabel">Add Student</h5>
+                                <h5 class="modal-title" id="majorLabel">Add Major</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" name="name">
-                                </div>
-                                <select class="form-select" name="major" aria-label="Default select example">
-                                    <?php foreach (Major::getList() as $major) { ?>
-                                        <option value="<?= $major->getMajor() ?>"><?= $major->getMajor() ?></option>
-                                    <?php } ?>
-                                </select>
-                                <div class="mb-3">
-                                    <label class="form-label">Age</label>
-                                    <input type="text" class="form-control" name="age">
+                                    <label class="form-label">Major</label>
+                                    <input type="text" class="form-control" name="major">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -51,12 +44,12 @@
                 </div>
             </div>
 
-            <a href="./classes">
-                <button class="btn btn-info">List Classes</button>
+            <a href="./students">
+                <button class="btn btn-info">List Students</button>
             </a>
 
-            <a href="./majors">
-                <button class="btn btn-info">List Majors</button>
+            <a href="./classes">
+                <button class="btn btn-info">List Classes</button>
             </a>
 
             <a href="./subjects">
@@ -69,7 +62,7 @@
 
             <div class="d-flex p-2"></div>
 
-            <form class="input-group" method="POST" action="./students">
+            <form class="input-group" method="POST" action="./majors">
                 <input type="search" class="form-control rounded" placeholder="Enter your search keywords here"
                     aria-label="Search" aria-describedby="search-addon" name="keyword">
                 <button class="btn btn-primary" name="search" value="true">Search</button>
@@ -81,41 +74,33 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-12">
-                    <h1>List student</h1>
+                    <h1>List Major</h1>
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Id</th>
-                                <th scope="col">Name</th>
                                 <th scope="col">Major</th>
-                                <th scope="col">Age</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($list_student as $student) { ?>
+                            <?php foreach ($list_major as $major) { ?>
                             <tr>
-                                <th scope="row"><?= $student->getId() ?></th>
-                                <td><?= $student->getName() ?></td>
-                                <td><?= $student->getMajor() ?></td>
-                                <td><?= $student->getAge() ?></td>
+                                <th scope="row"><?= $major->getId() ?></th>
+                                <td><?= $major->getMajor() ?></td>
                                 <td>
-                                    <form style="display: inline;" method="POST" action="./students">
-                                        <button class="btn btn-success"
-                                            name="join" value="<?= $student->getId() ?>">Join Class</button>
-                                    </form>
-                                    <form style="display: inline;" method="POST" action="./students">
+                                    <form style="display: inline;" method="POST" action="./majors">
                                         <button class="btn btn-info"
-                                            name="detail" value="<?= $student->getId() ?>">Detail</button>
+                                            name="detail" value="<?= $major->getId() ?>">Detail</button>
                                     </form>
-                                    <form style="display: inline;" method="POST" action="./students">
+                                    <form style="display: inline;" method="POST" action="./majors">
                                         <button class="btn btn-warning"
-                                            name="edit" value="<?= $student->getId() ?>">Edit</button>
+                                            name="edit" value="<?= $major->getId() ?>">Edit</button>
                                     </form>
-                                    <form style="display: inline;" method="POST" action="./students">
+                                    <form style="display: inline;" method="POST" action="./majors">
                                         <button class="btn btn-danger"
-                                            onclick="return confirm('Bạn có chắc chắn muốn xóa sinh viên này ?')" 
-                                            name="delete" value="<?= $student->getId() ?>">Delete</button>
+                                            onclick="return confirm('Bạn có chắc chắn muốn xóa ngành này ?')" 
+                                            name="delete" value="<?= $major->getId() ?>">Delete</button>
                                     </form>
                                 </td>
                             </tr>

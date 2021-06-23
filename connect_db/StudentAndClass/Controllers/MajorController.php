@@ -1,13 +1,12 @@
 <?php
 include_once "../Models/DBs.php";
-include_once "../Models/Student.php";
-class StudentController {
-
+include_once "../Models/Majors.php";
+class MajorController {
     static public function index() {
         try {
             //code...
-            $list_student = Student::getList();
-            include_once "../Views/student/list_view.php";
+            $list_major = Major::getList();
+            include_once "../Views/major/list_view.php";
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
@@ -16,8 +15,8 @@ class StudentController {
     static public function search($request) {
         try {
             //code...
-            $list_student = Student::getListSearch($request['keyword']);
-            include_once "../Views/student/list_view.php";
+            $list_major = Major::getListSearch($request['keyword']);
+            include_once "../Views/major/list_view.php";
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
@@ -26,22 +25,14 @@ class StudentController {
     static public function info($request) {
         try {
             $id = $request['detail'];
-            $list_student = Student::getList();
-            $student = null;
-            foreach ($list_student as $val_student)
-                if ($val_student->getId() == $id) {
-                    $student = $val_student;
+            $list_major = Major::getList();
+            $major = null;
+            foreach ($list_major as $val_major)
+                if ($val_major->getId() == $id) {
+                    $major = $val_major;
                     break;
                 }
-            include_once "../Views/student/detail-student.php";
-        } catch (\Throwable $th) {
-            echo $th->getMessage();
-        }
-    }
-
-    static public function joinClass($request) {
-        try {
-            include_once "../Views/student/join-class.php";
+            include_once "../Views/major/detail-major.php";
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
@@ -50,8 +41,8 @@ class StudentController {
     static public function add($request) {
         try {
             //code...
-            $student = new Student(null, $request['name'], $request['age'], $request['major']);
-            $result = Student::add($student);
+            $major = new Major(null, $request['major']);
+            $result = Major::add($major);
             var_dump($result);
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         } catch (\Throwable $th) {
@@ -61,8 +52,8 @@ class StudentController {
 
     static public function delete($request) {
         try {
-            $id = $request['delete'];
-            $result = Student::delete($id);
+            $major = $request['delete'];
+            $result = Major::delete($major);
             var_dump($result);
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         } catch (\Throwable $th) {
@@ -73,16 +64,16 @@ class StudentController {
     static public function edit($request) {
         try {
             $id = $request['edit'];
-            $list_student = Student::getList();
-            $student = null;
-            foreach ($list_student as $val_student)
-                if ($val_student->getId() == $id) {
-                    $student = $val_student;
+            $list_major = Major::getList();
+            $major = null;
+            foreach ($list_major as $val_major)
+                if ($val_major->getId() == $id) {
+                    $major = $val_major;
                     break;
                 }
-            include_once "../Views/student/edit-student.php";
+            include_once "../Views/major/edit-major.php";
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
     }
-} ?>
+}

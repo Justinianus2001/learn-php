@@ -57,6 +57,30 @@ CREATE TABLE `dangky` (
   `id_mh` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `majors`
+--
+
+CREATE TABLE `majors` (
+  `id_major` int(20) NOT NULL,
+  `major` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subjects`
+--
+
+CREATE TABLE `subjects` (
+  `id_subject` int(20) NOT NULL,
+  `subject` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
 --
 -- Dumping data for table `students`
 --
@@ -64,6 +88,26 @@ CREATE TABLE `dangky` (
 INSERT INTO `students` (`id_sv`, `name`, `age`, `major`) VALUES
 (1, 'Quy', 18, 'IT'),
 (2, 'Nguyễn Thanh Quý', 17, 'Toán');
+
+-- --------------------------------------------------------
+
+--
+-- Dumping data for table `majors`
+--
+
+INSERT INTO `majors`(`id_major`, `major`) VALUES
+(1, 'Toan'), (2, 'Van'), (3, 'Anh'),
+(4, 'Ly'), (5, 'Hoa'), (6, 'Sinh'),
+(7, 'Su'), (8, 'Dia'), (9, 'GDCD');
+
+--
+-- Dumping data for table `subjects`
+--
+
+INSERT INTO `subjects`(`id_subject`, `subject`) VALUES
+(1, 'Toan10'), (2, 'Van10'), (3, 'Anh10'), (4, 'Ly10'), (5, 'Hoa10'), (6, 'Sinh10'), (7, 'Su10'), (8, 'Dia10'), (9, 'GDCD10'),
+(10, 'Toan11'), (11, 'Van11'), (12, 'Anh11'), (13, 'Ly11'), (14, 'Hoa11'), (15, 'Sinh11'), (16, 'Su11'), (17, 'Dia11'), (18, 'GDCD11'),
+(19, 'Toan12'), (20, 'Van12'), (21, 'Anh12'), (22, 'Ly12'), (23, 'Hoa12'), (24, 'Sinh12'), (25, 'Su12'), (26, 'Dia12'), (27, 'GDCD12');
 
 --
 -- Indexes for dumped tables
@@ -82,6 +126,18 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`id_sv`);
 
 --
+-- Indexes for table `majors`
+--
+ALTER TABLE `majors`
+  ADD PRIMARY KEY (`id_major`);
+
+--
+-- Indexes for table `subjects`
+--
+ALTER TABLE `subjects`
+  ADD PRIMARY KEY (`id_subject`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -96,6 +152,18 @@ ALTER TABLE `classes`
 --
 ALTER TABLE `students`
   MODIFY `id_sv` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `majors`
+--
+ALTER TABLE `majors`
+  MODIFY `id_major` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `id_subject` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

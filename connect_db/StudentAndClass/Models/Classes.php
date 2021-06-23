@@ -1,5 +1,4 @@
 <?php
-include_once "Student.php";
 include_once "DBs.php";
 class Classes {
     //properties
@@ -50,7 +49,25 @@ class Classes {
 
     static function getList() {
         $conn = DB::connect();
-        $sql = "SELECT * FROM classes";
+        $sql = "SELECT * FROM `classes`";
+        $result = $conn->query($sql);
+        $ls = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $ls[] = new Classes($row['id_mh'], $row['name'], $row['subject']);
+            }
+        }
+        $conn->close();
+        return $ls;
+    }
+
+    static function getListSearch($keyword) {
+        $conn = DB::connect();
+        $keyword = '%' . $keyword . '%';
+        $sql = "SELECT * FROM `classes`
+                WHERE `id_mh` LIKE '" . $keyword .
+                "' OR `name` LIKE '" . $keyword .
+                "' OR `subject` LIKE '" . $keyword . "'";
         $result = $conn->query($sql);
         $ls = [];
         if ($result->num_rows > 0) {
@@ -98,7 +115,7 @@ class Classes {
         $conn = DB::connect();
         $sql = "UPDATE `classes` 
                 SET `name`    = '" . $class->name    . "', 
-                    `subject` = '" . $class->subject . "'
+                    `subject` = '" . $class->subject . "' 
                 WHERE `id_mh` = " . $class->id;
         $result = $conn->query($sql);
         if ($conn->error) {

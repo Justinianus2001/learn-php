@@ -69,6 +69,25 @@ class Student {
         return $ls;
     }
 
+    static function getListSearch($keyword) {
+        $conn = DB::connect();
+        $keyword = '%' . $keyword . '%';
+        $sql = "SELECT * FROM `students`
+                WHERE `id_sv` LIKE '" . $keyword .
+                "' OR `name` LIKE '" . $keyword .
+                "' OR `age` LIKE '" . $keyword .
+                "' OR `major` LIKE '" . $keyword . "'";
+        $result = $conn->query($sql);
+        $ls = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $ls[] = new Student($row['id_sv'], $row['name'], $row['age'], $row['major']);
+            }
+        }
+        $conn->close();
+        return $ls;
+    }
+
     static function add($student) {
         $conn = DB::connect();
         $sql = "INSERT INTO `students` (`name`, `age`, `major`) 
@@ -107,7 +126,7 @@ class Student {
         $sql = "UPDATE `students` 
                 SET `name`  = '" . $student->name  . "', 
                     `age`   = '" . $student->age   . "',
-                    `major` = '" . $student->major . "'
+                    `major` = '" . $student->major . "' 
                 WHERE `id_sv` = " . $student->id;
         $result = $conn->query($sql);
         if ($conn->error) {
@@ -116,5 +135,18 @@ class Student {
         }
         $conn->close();
         return $result;
+    }
+
+    static function joinClass($studentId, $classId) {
+        $conn = DB::connect();
+        $sql = "INSERT INTO `dangky` (`id_sv`, `id_mh`)
+                VALUES ('" . $studentId . "',
+                        '" . $classId   . "')";
+        $result = $conn->query($sql);
+        if ($conn->error) {
+            echo $con->error;
+            return null;
+        }
+        $conn->close();
     }
 } ?>

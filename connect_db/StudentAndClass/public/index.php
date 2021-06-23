@@ -17,26 +17,28 @@
         $method = $_SERVER['REQUEST_METHOD'];
         include_once "../Controllers/StudentController.php";
         include_once "../Controllers/ClassController.php";
+        include_once "../Controllers/MajorController.php";
+        include_once "../Controllers/SubjectController.php";
         switch ($url) {
             case 'students':
                 # code...
                 switch ($method) {
                     case 'GET':
-                        if (!empty($_GET['id']) && !empty($_GET['join'])) {
-                            StudentController::joinClass($_GET['id']);
-                        } elseif (!empty($_GET['id'])) {
-                            StudentController::info($_GET['id']);
-                        } else {
-                            StudentController::index();
-                        }
+                        StudentController::index();
                         return;
                     case 'POST':
-                        if (!empty($_REQUEST['add'])) {
+                        if (!empty($_REQUEST['search'])) {
+                            StudentController::search($_REQUEST);
+                        } elseif (!empty($_REQUEST['add'])) {
                             StudentController::add($_REQUEST);
                         } elseif (!empty($_REQUEST['delete'])) {
                             StudentController::delete($_REQUEST);
                         } elseif (!empty($_REQUEST['edit'])) {
                             StudentController::edit($_REQUEST);
+                        } elseif (!empty($_REQUEST['join'])) {
+                            StudentController::joinClass($_REQUEST);
+                        } elseif (!empty($_REQUEST['detail'])) {
+                            StudentController::info($_REQUEST);
                         } else {
                             echo "Dữ liệu không hợp lệ";
                         }
@@ -45,19 +47,67 @@
             case 'classes':
                 switch ($method) {
                     case 'GET':
-                        if (!empty($_GET['id'])) {
-                            ClassController::info($_GET['id']);
-                        } else {
-                            ClassController::index();
-                        }
+                        ClassController::index();
                         return;
                     case 'POST':
-                        if (!empty($_REQUEST['add'])) {
+                        if (!empty($_REQUEST['search'])) {
+                            ClassController::search($_REQUEST);
+                        } elseif (!empty($_REQUEST['add'])) {
                             ClassController::add($_REQUEST);
                         } elseif (!empty($_REQUEST['delete'])) {
                             ClassController::delete($_REQUEST);
                         } elseif (!empty($_REQUEST['edit'])) {
                             ClassController::edit($_REQUEST);
+                        } elseif (!empty($_REQUEST['join'])) {
+                            ClassController::joinClass($_REQUEST);
+                        } elseif (!empty($_REQUEST['detail'])) {
+                            ClassController::info($_REQUEST);
+                        } else {
+                            echo "Dữ liệu không hợp lệ";
+                        }
+                        return;
+                }
+            case 'majors':
+                switch ($method) {
+                    case 'GET':
+                        MajorController::index();
+                        return;
+                    case 'POST':
+                        if (!empty($_REQUEST['search'])) {
+                            MajorController::search($_REQUEST);
+                        } elseif (!empty($_REQUEST['add'])) {
+                            MajorController::add($_REQUEST);
+                        } elseif (!empty($_REQUEST['delete'])) {
+                            MajorController::delete($_REQUEST);
+                        } elseif (!empty($_REQUEST['edit'])) {
+                            MajorController::edit($_REQUEST);
+                        } elseif (!empty($_REQUEST['join'])) {
+                            MajorController::joinClass($_REQUEST);
+                        } elseif (!empty($_REQUEST['detail'])) {
+                            MajorController::info($_REQUEST);
+                        } else {
+                            echo "Dữ liệu không hợp lệ";
+                        }
+                        return;
+                }
+            case 'subjects':
+                switch ($method) {
+                    case 'GET':
+                        SubjectController::index();
+                        return;
+                    case 'POST':
+                        if (!empty($_REQUEST['search'])) {
+                            SubjectController::search($_REQUEST);
+                        } elseif (!empty($_REQUEST['add'])) {
+                            SubjectController::add($_REQUEST);
+                        } elseif (!empty($_REQUEST['delete'])) {
+                            SubjectController::delete($_REQUEST);
+                        } elseif (!empty($_REQUEST['edit'])) {
+                            SubjectController::edit($_REQUEST);
+                        } elseif (!empty($_REQUEST['join'])) {
+                            SubjectController::joinClass($_REQUEST);
+                        } elseif (!empty($_REQUEST['detail'])) {
+                            SubjectController::info($_REQUEST);
                         } else {
                             echo "Dữ liệu không hợp lệ";
                         }
@@ -70,6 +120,12 @@
                     </a>
                     <a href="./classes">
                         <button class="btn btn-primary">List Classes</button>
+                    </a>
+                    <a href="./majors">
+                        <button class="btn btn-primary">List Majors</button>
+                    </a>
+                    <a href="./subjects">
+                        <button class="btn btn-primary">List Subjects</button>
                     </a>
                 </div>
         <?php } ?>

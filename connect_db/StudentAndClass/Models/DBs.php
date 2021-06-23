@@ -1,10 +1,8 @@
 <?php
-class DB
-{
-
+class DB {
     static private $conn = null;
-    static public function connect()
-    {
+    
+    static public function connect() {
         $servername = "localhost";
         $username = "root";
         $password = "";
@@ -20,8 +18,7 @@ class DB
         return $conn;
     }
 
-    static public function reset_connect()
-    {
+    static public function reset_connect() {
         // DB::$conn = null;
     }
 }
