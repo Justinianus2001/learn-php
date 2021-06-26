@@ -1,4 +1,7 @@
-<?php include_once "../Models/Majors.php"; ?>
+<?php
+    include_once "../Models/Majors.php";
+    include_once "../Models/Classes.php";
+?>
 <!doctype html>
 <html lang="en">
     <head>
@@ -32,14 +35,25 @@
                                     <label class="form-label">Name</label>
                                     <input type="text" class="form-control" name="name">
                                 </div>
-                                <select class="form-select" name="major" aria-label="Default select example">
-                                    <?php foreach (Major::getList() as $major) { ?>
-                                        <option value="<?= $major->getMajor() ?>"><?= $major->getMajor() ?></option>
-                                    <?php } ?>
-                                </select>
+                                <div class="mb-3">
+                                    <label class="form-label">Major</label>
+                                    <select class="form-select" name="major" aria-label="Default select example">
+                                        <option value=""></option>
+                                        <?php foreach (Major::getList() as $major) { ?>
+                                            <option value="<?= $major->getMajor() ?>"><?= $major->getMajor() ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
                                 <div class="mb-3">
                                     <label class="form-label">Age</label>
                                     <input type="text" class="form-control" name="age">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Join class</label><br>
+                                    <?php foreach (CLasses::getList() as $class) { ?>
+                                        <input type="checkbox" id="class" name="<?= $class->getId() ?>" value="<?= $class->getId() ?>">
+                                        <label for="class"><?= $class->getName() ?></label><br>
+                                    <?php } ?>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -81,7 +95,7 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-12">
-                    <h1>List student</h1>
+                    <h1>List Student</h1>
                     <table class="table table-hover">
                         <thead>
                             <tr>

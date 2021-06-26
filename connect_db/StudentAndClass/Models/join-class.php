@@ -20,14 +20,20 @@
                         include_once "./DBs.php";
                         include_once "./Student.php";
                         $conn = DB::connect();
-                        $sql = "SELECT * FROM `dangky` WHERE `id_sv` = " . $_REQUEST['student_id'] . " AND `id_mh` = " . $_REQUEST['class_id'];
-                        $result = $conn->query($sql);
-                        if ($result->num_rows == 0) {
-                            Student::joinClass($_REQUEST['student_id'], $_REQUEST['class_id']);
-                            echo 'Join class successful !';
-                        } else {
-                            echo 'Class already join !';
+                        $first = true;
+                        $studentId = null;
+                        foreach ($_REQUEST as $classId) {
+                            if ($first) {
+                                $studentId = $classId;
+                                $sql = "DELETE FROM `dangky` WHERE `id_sv` = " . $studentId;
+                                $result = $conn->query($sql);
+                                $first = false;
+                            } else {
+                                Student::joinClass($studentId, $classId);
+                            }
                         }
+                        echo 'Join class successful !';
+                        $conn->close();
                     } catch (\Throwable $th) {
                         //throw $th;
                         echo "</br>-------------";

@@ -50,8 +50,24 @@ class StudentController {
     static public function add($request) {
         try {
             //code...
-            $student = new Student(null, $request['name'], $request['age'], $request['major']);
-            $result = Student::add($student);
+            $cnt = 0;
+            $Name = null;
+            $Age = null;
+            $Major = null;
+            foreach ($request as $val) {
+                if ($cnt == 1) {
+                    $Name = $val;
+                } elseif ($cnt == 2) {
+                    $Major = $val;
+                } elseif ($cnt == 3) {
+                    $Age = $val;
+                    $student = new Student(null, $Name, $Age, $Major);
+                    $idStudent = Student::add($student);
+                } elseif ($cnt > 3 and $cnt + 1 != count($request)) {
+                    $result = Student::joinClass($idStudent, $val);
+                }
+                $cnt ++;
+            }
             var_dump($result);
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         } catch (\Throwable $th) {

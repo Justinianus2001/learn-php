@@ -83,8 +83,8 @@ class Subject {
                 return false;
             }
             $sql = "UPDATE `classes` 
-                    SET `subject` = '" . null . "'
-                    WHERE `subject` = " . $oldSubject;
+                    SET `subject` = NULL
+                    WHERE `subject` = '" . $oldSubject . "'";
             $result = $conn->query($sql);
             if ($conn->error) {
                 echo $conn->error;
@@ -104,7 +104,7 @@ class Subject {
             $oldSubject = $row['subject'];
             $sql = "UPDATE `subjects` 
                     SET `subject` = '" . $subject->subject . "'
-                    WHERE `id_subject` = " . $subject->id;
+                    WHERE `id_subject` = '" . $subject->id . "'";
             $result = $conn->query($sql);
             if ($conn->error) {
                 echo $conn->error;
@@ -112,7 +112,7 @@ class Subject {
             }
             $sql = "UPDATE `classes` 
                     SET `subject` = '" . $subject->subject . "'
-                    WHERE `subject` = " . $oldSubject;
+                    WHERE `subject` = '" . $oldSubject . "'";
             $result = $conn->query($sql);
             if ($conn->error) {
                 echo $conn->error;

@@ -83,8 +83,8 @@ class Major {
                 return false;
             }
             $sql = "UPDATE `students` 
-                    SET `major` = '" . null . "'
-                    WHERE `major` = " . $oldMajor;
+                    SET `major` = NULL
+                    WHERE `major` = '" . $oldMajor  . "'";
             $result = $conn->query($sql);
             if ($conn->error) {
                 echo $conn->error;
@@ -104,7 +104,7 @@ class Major {
             $oldMajor = $row['major'];
             $sql = "UPDATE `majors` 
                     SET `major` = '" . $major->major . "'
-                    WHERE `id_major` = " . $major->id;
+                    WHERE `id_major` = '" . $major->id . "'";
             $result = $conn->query($sql);
             if ($conn->error) {
                 echo $conn->error;
@@ -112,7 +112,7 @@ class Major {
             }
             $sql = "UPDATE `students` 
                     SET `major` = '" . $major->major . "'
-                    WHERE `major` = " . $oldMajor;
+                    WHERE `major` = '" . $oldMajor . "'";
             $result = $conn->query($sql);
             if ($conn->error) {
                 echo $conn->error;

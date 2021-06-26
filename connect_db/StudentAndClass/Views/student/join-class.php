@@ -1,6 +1,7 @@
 <?php 
-include_once "../Models/Student.php";
-include_once "../Models/Classes.php";
+    include_once "../Models/Student.php";
+    include_once "../Models/Classes.php";
+    include_once "../Models/DBs.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,7 +19,6 @@ include_once "../Models/Classes.php";
     </head>
     <body>
         <?php try { ?>
-            <?php $list_class = Classes::getList(); ?>
             <div class="container mt-5">
                 <!-- Button trigger modal -->
                 <form method="POST" action="../Models/join-class.php">
@@ -30,16 +30,26 @@ include_once "../Models/Classes.php";
                             <label class="form-label">Name</label>
                             <input type="hidden" value="<?= $_REQUEST['join'] ?>" class="form-control" name="student_id">
                         </div>
-                        <div class="mb-3">
-                            <select class="form-select" name="class_id" aria-label="Default select example">
-                                <?php
-                                    foreach ($list_class as $class) {
-                                        $info_class = $class->getInfo();
-                                ?>
-                                <option value="<?= $info_class['id'] ?>"><?= $info_class['name'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
+                        <?php
+                            $conn = DB::connect();
+                            $sql = "SELECT `id_mh` FROM `dangky` WHERE `id_sv` = " . $_REQUEST['join'];
+                            $result = $conn->query($sql);
+                            $lst = [];
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $lst[] = $row['id_mh'];
+                                }
+                            }
+                            $conn->close();
+                            foreach (CLasses::getList() as $class) {
+                                if (in_array($class->getId(), $lst)) { ?>
+                                <input type="checkbox" id="class" name="<?= $class->getId() ?>" value="<?= $class->getId() ?>" checked>
+                                <label for="class"><?= $class->getName() ?></label><br>
+                        <?php } else { ?>
+                                <input type="checkbox" id="class" name="<?= $class->getId() ?>" value="<?= $class->getId() ?>">
+                                <label for="class"><?= $class->getName() ?></label><br>
+                        <?php }
+                        } ?>
                     </div>
                     <div class="modal-footer">
                         <a href="../public/students">

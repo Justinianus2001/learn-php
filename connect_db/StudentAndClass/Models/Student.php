@@ -99,8 +99,9 @@ class Student {
             echo $conn->error;
             return null;
         }
+        $id = $conn->insert_id;
         $conn->close();
-        return $result;
+        return $id;
     }
 
     static function delete($id) {

@@ -32,11 +32,15 @@
                                     <label class="form-label">Name</label>
                                     <input type="text" class="form-control" name="name">
                                 </div>
-                                <select class="form-select" name="subject" aria-label="Default select example">
-                                <?php foreach (Subject::getList() as $subject) { ?>
-                                    <option value="<?= $subject->getSubject() ?>"><?= $subject->getSubject() ?></option>
-                                    <?php } ?>
-                                </select>
+                                <div class="mb-3">
+                                    <label class="form-label">Subject</label>
+                                    <select class="form-select" name="subject" aria-label="Default select example">
+                                        <option value=""></option>
+                                        <?php foreach (Subject::getList() as $subject) { ?>
+                                        <option value="<?= $subject->getSubject() ?>"><?= $subject->getSubject() ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

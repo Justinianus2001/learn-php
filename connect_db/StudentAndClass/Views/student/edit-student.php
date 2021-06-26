@@ -1,3 +1,4 @@
+<?php include_once "../Models/Majors.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -28,7 +29,16 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Major</label>
-                            <input type="text" class="form-control" name="major" value="<?= $student->getMajor() ?>">
+                            <select class="form-select" name="major" aria-label="Default select example">
+                                <option value=""></option>
+                                <?php foreach (Major::getList() as $major) {
+                                    if ($student->getMajor() == $major->getMajor()) { ?>
+                                    <option value="<?= $major->getMajor() ?>" selected><?= $major->getMajor() ?></option>
+                                <?php } else { ?>
+                                    <option value="<?= $major->getMajor() ?>"><?= $major->getMajor() ?></option>
+                                <?php }
+                                } ?>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Age</label>

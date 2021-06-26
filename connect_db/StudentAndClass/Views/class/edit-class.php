@@ -1,3 +1,4 @@
+<?php include_once "../Models/Subjects.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -27,8 +28,17 @@
                             <input type="text" class="form-control" name="name" value="<?= $class->getName() ?>">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Subject</label>
-                            <input type="text" class="form-control" name="subject" value="<?= $class->getSubject() ?>">
+                            <label class="form-label">Major</label>
+                            <select class="form-select" name="subject" aria-label="Default select example">
+                                <option value=""></option>
+                                <?php foreach (Subject::getList() as $subject) {
+                                    if ($class->getSubject() == $subject->getSubject()) { ?>
+                                    <option value="<?= $subject->getSubject() ?>" selected><?= $subject->getSubject() ?></option>
+                                <?php } else { ?>
+                                    <option value="<?= $subject->getSubject() ?>"><?= $subject->getSubject() ?></option>
+                                <?php }
+                                } ?>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
