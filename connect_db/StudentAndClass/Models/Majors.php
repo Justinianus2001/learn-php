@@ -39,12 +39,49 @@ class Major {
         return $ls;
     }
 
+    static function getSubList($page) {
+        $conn = DB::connect();
+        if (is_null($page)) {
+            $page = 1;
+        }
+        $sql = "SELECT * FROM `majors` LIMIT " . (($page - 1) * 5) . ", 5";
+        $result = $conn->query($sql);
+        $ls = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $ls[] = new Major($row['id_major'], $row['major']);
+            }
+        }
+        $conn->close();
+        return $ls;
+    }
+
     static function getListSearch($keyword) {
         $conn = DB::connect();
         $keyword = '%' . $keyword . '%';
         $sql = "SELECT * FROM `majors`
                 WHERE `id_major` LIKE '" . $keyword .
                 "' OR `major` LIKE '" . $keyword . "'";
+        $result = $conn->query($sql);
+        $ls = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $ls[] = new Major($row['id_major'], $row['major']);
+            }
+        }
+        $conn->close();
+        return $ls;
+    }
+
+    static function getSubListSearch($keyword, $page) {
+        $conn = DB::connect();
+        if (is_null($page)) {
+            $page = 1;
+        }
+        $keyword = '%' . $keyword . '%';
+        $sql = "SELECT * FROM `majors`
+                WHERE `id_major` LIKE '" . $keyword .
+                "' OR `major` LIKE '" . $keyword . "' LIMIT " . (($page - 1) * 5) . ", 5";
         $result = $conn->query($sql);
         $ls = [];
         if ($result->num_rows > 0) {

@@ -24,12 +24,14 @@
                 # code...
                 switch ($method) {
                     case 'GET':
-                        StudentController::index();
+                        if (!empty($_GET['search'])) {
+                            StudentController::search($_GET);
+                        } else {
+                            StudentController::index($_GET);
+                        }
                         return;
                     case 'POST':
-                        if (!empty($_REQUEST['search'])) {
-                            StudentController::search($_REQUEST);
-                        } elseif (!empty($_REQUEST['add'])) {
+                        if (!empty($_REQUEST['add'])) {
                             StudentController::add($_REQUEST);
                         } elseif (!empty($_REQUEST['delete'])) {
                             StudentController::delete($_REQUEST);
@@ -47,12 +49,14 @@
             case 'classes':
                 switch ($method) {
                     case 'GET':
-                        ClassController::index();
+                        if (!empty($_GET['search'])) {
+                            ClassController::search($_GET);
+                        } else {
+                            ClassController::index($_GET);
+                        }
                         return;
                     case 'POST':
-                        if (!empty($_REQUEST['search'])) {
-                            ClassController::search($_REQUEST);
-                        } elseif (!empty($_REQUEST['add'])) {
+                        if (!empty($_REQUEST['add'])) {
                             ClassController::add($_REQUEST);
                         } elseif (!empty($_REQUEST['delete'])) {
                             ClassController::delete($_REQUEST);
@@ -70,12 +74,14 @@
             case 'majors':
                 switch ($method) {
                     case 'GET':
-                        MajorController::index();
+                        if (!empty($_GET['search'])) {
+                            MajorController::search($_GET);
+                        } else {
+                            MajorController::index($_GET);
+                        }
                         return;
                     case 'POST':
-                        if (!empty($_REQUEST['search'])) {
-                            MajorController::search($_REQUEST);
-                        } elseif (!empty($_REQUEST['add'])) {
+                        if (!empty($_REQUEST['add'])) {
                             MajorController::add($_REQUEST);
                         } elseif (!empty($_REQUEST['delete'])) {
                             MajorController::delete($_REQUEST);
@@ -93,12 +99,14 @@
             case 'subjects':
                 switch ($method) {
                     case 'GET':
-                        SubjectController::index();
+                        if (!empty($_GET['search'])) {
+                            SubjectController::search($_GET);
+                        } else {
+                            SubjectController::index($_GET);
+                        }
                         return;
                     case 'POST':
-                        if (!empty($_REQUEST['search'])) {
-                            SubjectController::search($_REQUEST);
-                        } elseif (!empty($_REQUEST['add'])) {
+                        if (!empty($_REQUEST['add'])) {
                             SubjectController::add($_REQUEST);
                         } elseif (!empty($_REQUEST['delete'])) {
                             SubjectController::delete($_REQUEST);

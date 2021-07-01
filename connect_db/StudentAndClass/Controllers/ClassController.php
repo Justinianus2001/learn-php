@@ -2,20 +2,20 @@
 include_once "../Models/DBs.php";
 include_once "../Models/Classes.php";
 class ClassController {
-    static public function index() {
+    static public function index($get) {
         try {
             //code...
-            $list_class = Classes::getList();
+            $list_class = Classes::getSubList(isset($get['page']) ? $get['page'] : null);
             include_once "../Views/class/list_view.php";
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
     }
 
-    static public function search($request) {
+    static public function search($get) {
         try {
             //code...
-            $list_class = Classes::getListSearch($request['keyword']);
+            $list_class = Classes::getSubListSearch($get['keyword'], isset($get['page']) ? $get['page'] : null);
             include_once "../Views/class/list_view.php";
         } catch (\Throwable $th) {
             echo $th->getMessage();

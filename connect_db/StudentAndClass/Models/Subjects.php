@@ -39,12 +39,49 @@ class Subject {
         return $ls;
     }
 
+    static function getSubList($page) {
+        $conn = DB::connect();
+        if (is_null($page)) {
+            $page = 1;
+        }
+        $sql = "SELECT * FROM `subjects` LIMIT " . (($page - 1) * 5) . ", 5";
+        $result = $conn->query($sql);
+        $ls = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $ls[] = new Subject($row['id_subject'], $row['subject']);
+            }
+        }
+        $conn->close();
+        return $ls;
+    }
+
     static function getListSearch($keyword) {
         $conn = DB::connect();
         $keyword = '%' . $keyword . '%';
         $sql = "SELECT * FROM `subjects`
                 WHERE `id_subject` LIKE '" . $keyword .
                 "' OR `subject` LIKE '" . $keyword . "'";
+        $result = $conn->query($sql);
+        $ls = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $ls[] = new Subject($row['id_subject'], $row['subject']);
+            }
+        }
+        $conn->close();
+        return $ls;
+    }
+
+    static function getSubListSearch($keyword, $page) {
+        $conn = DB::connect();
+        if (is_null($page)) {
+            $page = 1;
+        }
+        $keyword = '%' . $keyword . '%';
+        $sql = "SELECT * FROM `subjects`
+                WHERE `id_subject` LIKE '" . $keyword .
+                "' OR `subject` LIKE '" . $keyword . "' LIMIT " . (($page - 1) * 5) . ", 5";
         $result = $conn->query($sql);
         $ls = [];
         if ($result->num_rows > 0) {

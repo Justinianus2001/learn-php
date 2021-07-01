@@ -61,6 +61,23 @@ class Classes {
         return $ls;
     }
 
+    static function getSubList($page) {
+        $conn = DB::connect();
+        if (is_null($page)) {
+            $page = 1;
+        }
+        $sql = "SELECT * FROM `classes` LIMIT " . (($page - 1) * 5) . ", 5";
+        $result = $conn->query($sql);
+        $ls = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $ls[] = new Classes($row['id_mh'], $row['name'], $row['subject']);
+            }
+        }
+        $conn->close();
+        return $ls;
+    }
+
     static function getListSearch($keyword) {
         $conn = DB::connect();
         $keyword = '%' . $keyword . '%';
@@ -68,6 +85,27 @@ class Classes {
                 WHERE `id_mh` LIKE '" . $keyword .
                 "' OR `name` LIKE '" . $keyword .
                 "' OR `subject` LIKE '" . $keyword . "'";
+        $result = $conn->query($sql);
+        $ls = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $ls[] = new Classes($row['id_mh'], $row['name'], $row['subject']);
+            }
+        }
+        $conn->close();
+        return $ls;
+    }
+
+    static function getSubListSearch($keyword, $page) {
+        $conn = DB::connect();
+        $keyword = '%' . $keyword . '%';
+        if (is_null($page)) {
+            $page = 1;
+        }
+        $sql = "SELECT * FROM `classes`
+                WHERE `id_mh` LIKE '" . $keyword .
+                "' OR `name` LIKE '" . $keyword .
+                "' OR `subject` LIKE '" . $keyword . "' LIMIT " . (($page - 1) * 5) . ", 5";
         $result = $conn->query($sql);
         $ls = [];
         if ($result->num_rows > 0) {

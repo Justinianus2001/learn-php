@@ -2,20 +2,20 @@
 include_once "../Models/DBs.php";
 include_once "../Models/Majors.php";
 class MajorController {
-    static public function index() {
+    static public function index($get) {
         try {
             //code...
-            $list_major = Major::getList();
+            $list_major = Major::getSubList(isset($get['page']) ? $get['page'] : null);
             include_once "../Views/major/list_view.php";
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
     }
 
-    static public function search($request) {
+    static public function search($get) {
         try {
             //code...
-            $list_major = Major::getListSearch($request['keyword']);
+            $list_major = Major::getSubListSearch($get['keyword'], isset($get['page']) ? $get['page'] : null);
             include_once "../Views/major/list_view.php";
         } catch (\Throwable $th) {
             echo $th->getMessage();

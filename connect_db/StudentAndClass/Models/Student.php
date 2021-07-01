@@ -69,6 +69,23 @@ class Student {
         return $ls;
     }
 
+    static function getSubList($page) {
+        $conn = DB::connect();
+        if (is_null($page)) {
+            $page = 1;
+        }
+        $sql = "SELECT * FROM `students` LIMIT " . (($page - 1) * 5) . ", 5";
+        $result = $conn->query($sql);
+        $ls = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $ls[] = new Student($row['id_sv'], $row['name'], $row['age'], $row['major']);
+            }
+        }
+        $conn->close();
+        return $ls;
+    }
+
     static function getListSearch($keyword) {
         $conn = DB::connect();
         $keyword = '%' . $keyword . '%';
@@ -77,6 +94,28 @@ class Student {
                 "' OR `name` LIKE '" . $keyword .
                 "' OR `age` LIKE '" . $keyword .
                 "' OR `major` LIKE '" . $keyword . "'";
+        $result = $conn->query($sql);
+        $ls = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $ls[] = new Student($row['id_sv'], $row['name'], $row['age'], $row['major']);
+            }
+        }
+        $conn->close();
+        return $ls;
+    }
+
+    static function getSubListSearch($keyword, $page) {
+        $conn = DB::connect();
+        if (is_null($page)) {
+            $page = 1;
+        }
+        $keyword = '%' . $keyword . '%';
+        $sql = "SELECT * FROM `students`
+                WHERE `id_sv` LIKE '" . $keyword .
+                "' OR `name` LIKE '" . $keyword .
+                "' OR `age` LIKE '" . $keyword .
+                "' OR `major` LIKE '" . $keyword . "' LIMIT " . (($page - 1) * 5) . ", 5";
         $result = $conn->query($sql);
         $ls = [];
         if ($result->num_rows > 0) {
