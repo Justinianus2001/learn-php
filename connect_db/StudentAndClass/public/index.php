@@ -15,6 +15,7 @@
         <?php
         $url = isset($_GET['url']) ? $_GET['url'] : "";
         $method = $_SERVER['REQUEST_METHOD'];
+        include_once "../Controllers/DashboardController.php";
         include_once "../Controllers/StudentController.php";
         include_once "../Controllers/ClassController.php";
         include_once "../Controllers/MajorController.php";
@@ -121,21 +122,9 @@
                         }
                         return;
                 }
-            default: ?>
-                <div class="container mt-5">
-                    <a href="./students">
-                        <button class="btn btn-primary">List Students</button>
-                    </a>
-                    <a href="./classes">
-                        <button class="btn btn-primary">List Classes</button>
-                    </a>
-                    <a href="./majors">
-                        <button class="btn btn-primary">List Majors</button>
-                    </a>
-                    <a href="./subjects">
-                        <button class="btn btn-primary">List Subjects</button>
-                    </a>
-                </div>
-        <?php } ?>
+            default:
+                DashboardController::index();
+                return;
+        } ?>
     </body>
 </html>

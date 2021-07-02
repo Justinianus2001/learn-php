@@ -1,40 +1,6 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-
-        <title>Edit Student</title>
-    </head>
-    <body>
-        <?php
-            try {
-                //code...
-                include_once "./Student.php";
-                Student::edit(new Student($_REQUEST['id'], $_REQUEST['name'], $_REQUEST['age'], $_REQUEST['major']));
-            } catch (\Throwable $th) {
-                //throw $th;
-                echo "</br>-------------";
-                echo "</br>Line: ".$th->getLine();
-                echo "</br>Line: ".$th->getMessage();
-            }
-            // if(isset($_SERVER['HTTP_REFERER'])) {
-            //     header('Location: http://localhost/learn_php/oop/StudentAndClass/view/');
-            //     exit;
-            // }else{
-            //     echo "Not found";
-            // }
-        ?>
-        <div class="container mt-3">
-            <h5>Edit student successful !</h5>
-            <a href="../public/students">
-                <button class="btn btn-primary">Home</button>
-            </a>
-        </div>
-    </body>
-</html>
+<?php
+    //code...
+    include_once "./Student.php";
+    Student::edit(new Student($_REQUEST['id'], $_REQUEST['name'], $_REQUEST['age'], $_REQUEST['major']));
+    header('Location: http://localhost/learn-php/connect_db/StudentAndClass/public/students');
+?>
