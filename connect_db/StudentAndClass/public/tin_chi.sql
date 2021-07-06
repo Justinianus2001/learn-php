@@ -2,10 +2,10 @@
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: mysql
--- Generation Time: Jun 05, 2021 at 04:27 PM
--- Server version: 5.7.34
--- PHP Version: 7.4.16
+-- Host: 127.0.0.1
+-- Generation Time: Jul 06, 2021 at 11:56 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clasess`
+-- Table structure for table `classes`
 --
 
 CREATE TABLE `classes` (
@@ -32,6 +32,69 @@ CREATE TABLE `classes` (
   `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `subject` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `classes`
+--
+
+INSERT INTO `classes` (`id_mh`, `name`, `subject`) VALUES
+(1, 'Toan 10', 'Toan10'),
+(2, 'Van 10', 'Van10'),
+(3, 'Anh 10', 'Anh10'),
+(4, 'Ly 10', 'Ly10'),
+(5, 'Hoa 10', 'Hoa10'),
+(6, 'Sinh 10', 'Sinh10'),
+(7, 'Su 10', 'Su10'),
+(8, 'Dia 10', 'Dia10'),
+(9, 'GDCD 10', 'GDCD10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dangky`
+--
+
+CREATE TABLE `dangky` (
+  `id_sv` int(20) NOT NULL,
+  `id_mh` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `dangky`
+--
+
+INSERT INTO `dangky` (`id_sv`, `id_mh`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `majors`
+--
+
+CREATE TABLE `majors` (
+  `id_major` int(20) NOT NULL,
+  `major` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `majors`
+--
+
+INSERT INTO `majors` (`id_major`, `major`) VALUES
+(1, 'Toan'),
+(2, 'Van'),
+(3, 'Anh'),
+(4, 'Ly'),
+(5, 'Hoa'),
+(6, 'Sinh'),
+(7, 'Su'),
+(8, 'Dia'),
+(9, 'GDCD');
 
 -- --------------------------------------------------------
 
@@ -46,27 +109,16 @@ CREATE TABLE `students` (
   `major` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `dangky`
+-- Dumping data for table `students`
 --
 
-CREATE TABLE `dangky` (
-  `id_sv` int(20) NOT NULL,
-  `id_mh` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `majors`
---
-
-CREATE TABLE `majors` (
-  `id_major` int(20) NOT NULL,
-  `major` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `students` (`id_sv`, `name`, `age`, `major`) VALUES
+(1, 'Quy', 22, 'Hoa'),
+(2, 'Nguyen Thanh Quy', 17, 'Toan'),
+(3, 'A', 18, 'Dia'),
+(4, 'GB', 20, 'GDCD'),
+(23, 'ABC', 20, 'Sinh');
 
 -- --------------------------------------------------------
 
@@ -79,57 +131,64 @@ CREATE TABLE `subjects` (
   `subject` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Dumping data for table `students`
---
-
-INSERT INTO `students` (`id_sv`, `name`, `age`, `major`) VALUES
-(1, 'Quy', 18, 'IT'),
-(2, 'Nguyễn Thanh Quý', 17, 'Toán');
-
--- --------------------------------------------------------
-
---
--- Dumping data for table `majors`
---
-
-INSERT INTO `majors`(`id_major`, `major`) VALUES
-(1, 'Toan'), (2, 'Van'), (3, 'Anh'),
-(4, 'Ly'), (5, 'Hoa'), (6, 'Sinh'),
-(7, 'Su'), (8, 'Dia'), (9, 'GDCD');
-
 --
 -- Dumping data for table `subjects`
 --
 
-INSERT INTO `subjects`(`id_subject`, `subject`) VALUES
-(1, 'Toan10'), (2, 'Van10'), (3, 'Anh10'), (4, 'Ly10'), (5, 'Hoa10'), (6, 'Sinh10'), (7, 'Su10'), (8, 'Dia10'), (9, 'GDCD10'),
-(10, 'Toan11'), (11, 'Van11'), (12, 'Anh11'), (13, 'Ly11'), (14, 'Hoa11'), (15, 'Sinh11'), (16, 'Su11'), (17, 'Dia11'), (18, 'GDCD11'),
-(19, 'Toan12'), (20, 'Van12'), (21, 'Anh12'), (22, 'Ly12'), (23, 'Hoa12'), (24, 'Sinh12'), (25, 'Su12'), (26, 'Dia12'), (27, 'GDCD12');
+INSERT INTO `subjects` (`id_subject`, `subject`) VALUES
+(1, 'Toan10'),
+(2, 'Van10'),
+(3, 'Anh10'),
+(4, 'Ly10'),
+(5, 'Hoa10'),
+(6, 'Sinh10'),
+(7, 'Su10'),
+(8, 'Dia10'),
+(9, 'GDCD10'),
+(10, 'Toan11'),
+(11, 'Van11'),
+(12, 'Anh11'),
+(13, 'Ly11'),
+(14, 'Hoa11'),
+(15, 'Sinh11'),
+(16, 'Su11'),
+(17, 'Dia11'),
+(18, 'GDCD11'),
+(19, 'Toan12'),
+(20, 'Van12'),
+(21, 'Anh12'),
+(22, 'Ly12'),
+(23, 'Hoa12'),
+(24, 'Sinh12'),
+(25, 'Su12'),
+(26, 'Dia12'),
+(27, 'GDCD12'),
+(29, 'GDQP'),
+(30, 'TD'),
+(31, 'Boi'),
+(32, 'Bong ro');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `clasess`
+-- Indexes for table `classes`
 --
 ALTER TABLE `classes`
   ADD PRIMARY KEY (`id_mh`);
-
---
--- Indexes for table `students`
---
-ALTER TABLE `students`
-  ADD PRIMARY KEY (`id_sv`);
 
 --
 -- Indexes for table `majors`
 --
 ALTER TABLE `majors`
   ADD PRIMARY KEY (`id_major`);
+
+--
+-- Indexes for table `students`
+--
+ALTER TABLE `students`
+  ADD PRIMARY KEY (`id_sv`);
 
 --
 -- Indexes for table `subjects`
@@ -142,28 +201,28 @@ ALTER TABLE `subjects`
 --
 
 --
--- AUTO_INCREMENT for table `clasess`
+-- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `id_mh` int(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `students`
---
-ALTER TABLE `students`
-  MODIFY `id_sv` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_mh` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `majors`
 --
 ALTER TABLE `majors`
-  MODIFY `id_major` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_major` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `id_sv` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id_subject` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_subject` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
